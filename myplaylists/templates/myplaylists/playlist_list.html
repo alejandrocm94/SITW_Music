@@ -1,0 +1,25 @@
+{% extends "myplaylists/base.html" %}
+
+{% block content %}
+
+<h1>
+    {% if user.is_authenticated %}
+        Playlist
+            (<a href="{% url 'myplaylists:playlist_create' %}">add</a>)
+    {% else %}
+        Please log in
+    {% endif %}
+
+</h1>
+
+<ul>
+    {% for playlist in latest_playlist_list %}
+      {% if user == playlist.user %}
+        <li><a href="{% url 'myplaylists:playlist_detail' playlist.id %}">{{ playlist.name }}</a></li>
+      {% endif %}
+    {% empty %}
+        <li>Sorry, no playlists registered yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
