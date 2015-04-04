@@ -7,7 +7,8 @@
 <body>
     {% if user.username %}
         <p> Welcome {{ user.username }}</p>
-        <li><a href="/myplaylists/">Myplaylists</a></li>
+        <p></p><li><a href="/myplaylists/">Myplaylists</a></li></p>
+        <p></p><li><a href="/logout/">Logout</a></li></p>
     {% else %}
         <p> Welcome anonymous:</p>
         <p>Must <a href="/login/">sign in</a> to manage your playlists</p>

@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
+from django.contrib.auth import logout
 
 from models import Artist, Release, Song, Playlist
 from forms import ArtistForm, ReleaseForm, SongForm, PlaylistForm
@@ -33,6 +34,12 @@ def mainpage(request):
         {
             'user': request.user
         }
+    )
+
+def log_out(request):
+    logout(request)
+    return render_to_response(
+        'registration/logout.html'
     )
 
 
