@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title> SITW_MUSIC </title>
+</head>
+<body>
+    {% if user.username %}
+        <p> Welcome {{ user.username }}</p>
+        <li><a href="/myplaylists/">Myplaylists</a></li>
+    {% else %}
+        <p> Welcome anonymous:</p>
+        <p>Must <a href="/login/">sign in</a> to manage your playlists</p>
+    {% endif %}
+</body>
+</html>

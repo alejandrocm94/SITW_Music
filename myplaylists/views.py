@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 
 # Create your views here.
 # Create your views here.
@@ -27,6 +27,12 @@ class PlaylistCreate(CreateView):
 
 
 
-
+def mainpage(request):
+    return render_to_response(
+        'myplaylists/mainpage.html',
+        {
+            'user': request.user
+        }
+    )
 
 
