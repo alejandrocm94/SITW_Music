@@ -6,7 +6,7 @@ from django.shortcuts import render, render_to_response
 from django.core import urlresolvers
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView
+from django.views.generic import DetailView, DeleteView
 from django.views.generic.edit import CreateView
 from django.contrib.auth import logout
 
@@ -26,7 +26,12 @@ class PlaylistCreate(CreateView):
         form.instance.user = self.request.user
         return super(PlaylistCreate, self).form_valid(form)
 
-
+class PlaylistDelete(DeleteView):
+    model = Playlist
+    template_name = 'myplaylists/playlist_list.html'
+    def delete(self, request):
+        get_object_or_404(self).delete()
+        return HttpResponseRedirect('myplaylists')
 
 def mainpage(request):
     return render_to_response(

@@ -9,6 +9,7 @@
     <span property="name">{{ playlist.name }}</span>
     {% if user == playlist.user %}
         (<a href="{% url 'myplaylists:playlist_edit' playlist.id %}">edit</a>)
+        (<a href="{% url 'myplaylists:playlist_delete' playlist.id %}">delete</a>)
     {% endif %}
 </h1>
 

@@ -4,7 +4,7 @@ from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 
 from models import Artist, Release, Song, Playlist
 from forms import ArtistForm, SongForm, PlaylistForm
-from views import PlaylistDetail, PlaylistCreate
+from views import PlaylistDetail, PlaylistCreate, PlaylistDelete
 
 urlpatterns = patterns('',
     # List all user playlist: /myplaylist/
@@ -15,29 +15,26 @@ urlpatterns = patterns('',
             template_name='myplaylists/playlist_list.html'),
             name='playlist'),
 
-    # Playlist details, ex.: /myplaylists/playlist/1/
-    url(r'^playlist/(?P<pk>\d+)/$',
+    # Playlist details, ex.: /myplaylists/1/
+    url(r'^(?P<pk>\d+)/$',
         PlaylistDetail.as_view(),
         name='playlist_detail'),
 
-    # Create a playlist: /myplaylists/playlist/create/
-    url(r'^playlist/create/$',
+    # Create a playlist: /myplaylists/create/
+    url(r'^create/$',
         PlaylistCreate.as_view(),
         name='playlist_create'),
 
-    # Edit playlist details, ex: /myplaylists/playlist/1/edit/
-    url(r'^playlist/(?P<pk>\d+)/edit/$',
+    # Edit playlist details, ex: /myplaylists/1/edit/
+    url(r'^(?P<pk>\d+)/edit/$',
         UpdateView.as_view(
             model=Playlist,
             form_class=PlaylistForm,
             template_name='myplaylists/form.html'),
             name='playlist_edit'),
 
-    # Delete playlist, ex: /myplaylists/playlist/1/delete/
-    url(r'^playlist/(?P<pk>\d+)/delete/$',
-        DeleteView.as_view(
-            model=Playlist,
-            form_class=PlaylistForm,
-            template_name='myplaylists/playlist_list.html'),
-            name='playlist_delete'),
+    # Delete playlist, ex: /myplaylists/1/delete/
+    url(r'^(?P<pk>\d+)/delete/$',
+        PlaylistDelete.as_view(),
+        name='playlist_delete'),
     )
