@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from django.utils import timezone
-from django.views.generic import DetailView, ListView, UpdateView
+from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 
 from models import Artist, Release, Song, Playlist
 from forms import ArtistForm, SongForm, PlaylistForm
@@ -15,21 +15,29 @@ urlpatterns = patterns('',
             template_name='myplaylists/playlist_list.html'),
             name='playlist'),
 
-    # Restaurant details, ex.: /myplaylists/playlist/1/
+    # Playlist details, ex.: /myplaylists/playlist/1/
     url(r'^playlist/(?P<pk>\d+)/$',
         PlaylistDetail.as_view(),
         name='playlist_detail'),
 
-    # Create a restaurant: /myplaylists/playlist/create/
+    # Create a playlist: /myplaylists/playlist/create/
     url(r'^playlist/create/$',
         PlaylistCreate.as_view(),
         name='playlist_create'),
 
-    # Edit restaurant details, ex: /myplaylists/playlist/1/edit/
+    # Edit playlist details, ex: /myplaylists/playlist/1/edit/
     url(r'^playlist/(?P<pk>\d+)/edit/$',
         UpdateView.as_view(
             model=Playlist,
             form_class=PlaylistForm,
             template_name='myplaylists/form.html'),
-        name='playlist_edit'),
+            name='playlist_edit'),
+
+    # Delete playlist, ex: /myplaylists/playlist/1/delete/
+    url(r'^playlist/(?P<pk>\d+)/delete/$',
+        DeleteView.as_view(
+            model=Playlist,
+            form_class=PlaylistForm,
+            template_name='myplaylists/playlist_list.html'),
+            name='playlist_delete'),
     )
