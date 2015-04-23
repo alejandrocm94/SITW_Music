@@ -4,6 +4,7 @@ from django.shortcuts import render, render_to_response
 # Create your views here.
 
 from django.core import urlresolvers
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, DeleteView
@@ -28,10 +29,7 @@ class PlaylistCreate(CreateView):
 
 class PlaylistDelete(DeleteView):
     model = Playlist
-    template_name = 'myplaylists/playlist_list.html'
-    def delete(self, request):
-        get_object_or_404(self).delete()
-        return HttpResponseRedirect('myplaylists')
+    success_url = '/myplaylists/'
 
 def mainpage(request):
     return render_to_response(

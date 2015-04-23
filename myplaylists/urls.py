@@ -33,8 +33,8 @@ urlpatterns = patterns('',
             template_name='myplaylists/form.html'),
             name='playlist_edit'),
 
-    # Delete playlist, ex: /myplaylists/1/delete/
-    url(r'^(?P<pk>\d+)/delete/$',
+    # Delete playlist, ex: /myplaylists/delete/1
+    url(r'^delete/(?P<pk>\d+)/$',
         PlaylistDelete.as_view(),
-        name='playlist_delete'),
+        name='delete_playlist'),
     )
