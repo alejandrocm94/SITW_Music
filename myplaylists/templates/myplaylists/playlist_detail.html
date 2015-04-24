@@ -15,9 +15,16 @@
 
 <h2>Songs:</h2>
 <p>
+    <center><table style="width:50%">
     {% for song in playlist.songs.all %}
-        {{ song }}
+            <tr>
+                <td><a href="">{{ song.name }}</a></td>
+                <td><a href="">{{ song.release }}</a></td>
+                <td><a href="">{{ song.release.artist }}</a></td>
+                <td><i>{{ song.duration }}</i></td>
+            </tr>
     {% endfor %}
+    </table></center>
 </p>
 
 {% endblock %}

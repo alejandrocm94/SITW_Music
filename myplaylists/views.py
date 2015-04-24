@@ -18,6 +18,10 @@ class PlaylistDetail(DetailView):
     model = Playlist
     template_name = 'myplaylists/playlist_detail.html'
 
+class ReleaseDetail(DetailView):
+    model = Playlist
+    template_name = 'myplaylists/release_detail.html'
+
 class PlaylistCreate(CreateView):
     model = Playlist
     template_name = 'myplaylists/form.html'

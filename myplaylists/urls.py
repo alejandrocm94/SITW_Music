@@ -4,7 +4,7 @@ from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 
 from models import Artist, Release, Song, Playlist
 from forms import ArtistForm, SongForm, PlaylistForm
-from views import PlaylistDetail, PlaylistCreate, PlaylistDelete
+from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail
 
 urlpatterns = patterns('',
     # List all user playlist: /myplaylist/
@@ -15,18 +15,19 @@ urlpatterns = patterns('',
             template_name='myplaylists/playlist_list.html'),
             name='playlist'),
 
-    # Playlist details, ex.: /myplaylists/1/
+    # Playlist details, ex.: /myplaylists/
     url(r'^(?P<pk>\d+)/$',
         PlaylistDetail.as_view(),
         name='playlist_detail'),
+
 
     # Create a playlist: /myplaylists/create/
     url(r'^create/$',
         PlaylistCreate.as_view(),
         name='playlist_create'),
 
-    # Edit playlist details, ex: /myplaylists/1/edit/
-    url(r'^(?P<pk>\d+)/edit/$',
+    # Edit playlist details, ex: /myplaylists/edit/1
+    url(r'^edit/(?P<pk>\d+)/$',
         UpdateView.as_view(
             model=Playlist,
             form_class=PlaylistForm,
@@ -38,3 +39,6 @@ urlpatterns = patterns('',
         PlaylistDelete.as_view(),
         name='delete_playlist'),
     )
+
+
+
