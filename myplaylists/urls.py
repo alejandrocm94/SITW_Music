@@ -7,7 +7,7 @@ from forms import ArtistForm, SongForm, PlaylistForm
 from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail
 
 urlpatterns = patterns('',
-    # List all user playlist: /myplaylist/
+    # List all user playlist: /myplaylists/
     url(r'^$',
         ListView.as_view(
             queryset = Playlist.objects.all(),
@@ -15,7 +15,7 @@ urlpatterns = patterns('',
             template_name='myplaylists/playlist_list.html'),
             name='playlist'),
 
-    # Playlist details, ex.: /myplaylists/
+    # Playlist details, ex.: /myplaylists/1
     url(r'^(?P<pk>\d+)/$',
         PlaylistDetail.as_view(),
         name='playlist_detail'),
@@ -38,6 +38,10 @@ urlpatterns = patterns('',
     url(r'^delete/(?P<pk>\d+)/$',
         PlaylistDelete.as_view(),
         name='delete_playlist'),
+
+    url(r'^release/(?P<pk>\d+)/$',
+        ReleaseDetail.as_view(),
+        name='release_detail'),
     )
 
 

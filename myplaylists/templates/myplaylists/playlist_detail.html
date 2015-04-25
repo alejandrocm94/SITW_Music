@@ -4,7 +4,6 @@
 
 {% block content %}
 
-<span vocab="http://schema.org/" typeof="Restaurant">
 <h1>
     <span property="name">{{ playlist.name }}</span>
     {% if user == playlist.user %}
@@ -19,7 +18,7 @@
     {% for song in playlist.songs.all %}
             <tr>
                 <td><a href="">{{ song.name }}</a></td>
-                <td><a href="">{{ song.release }}</a></td>
+                <td><a href="{% url 'myplaylists:release_detail' song.release.id %}">{{ song.release }}</a></td>
                 <td><a href="">{{ song.release.artist }}</a></td>
                 <td><i>{{ song.duration }}</i></td>
             </tr>
