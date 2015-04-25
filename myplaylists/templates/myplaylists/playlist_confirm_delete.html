@@ -1,5 +1,7 @@
-Segur que vols eliminar aquest objecte {{ object.title }}?
+Segur que vols eliminar l'objecte {{ object.title }}?
 <form method="post">
   {% csrf_token %}
-  <button type="submit" class="btn btn-danger">SIU PLEASE</button>
+  <button type="submit" class="btn btn-danger">SI</button>
+    <button type="button" onClick="history.back()">NO</button>
+
 </form>
