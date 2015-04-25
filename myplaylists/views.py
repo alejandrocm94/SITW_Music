@@ -22,6 +22,10 @@ class ReleaseDetail(DetailView):
     model = Release
     template_name = 'myplaylists/release_detail.html'
 
+class ArtistDetail(DetailView):
+    model = Artist
+    template_name = 'myplaylists/artist_detail.html'
+
 class PlaylistCreate(CreateView):
     model = Playlist
     template_name = 'myplaylists/form.html'
