@@ -39,7 +39,7 @@ urlpatterns = patterns('',
         PlaylistDelete.as_view(),
         name='delete_playlist'),
 
-    url(r'^(?P<id>\d+)/release/(?P<pk>\d+)/$',
+    url(r'^release/(?P<pk>\d+)/$',
         ReleaseDetail.as_view(),
         name='release_detail'),
     )
