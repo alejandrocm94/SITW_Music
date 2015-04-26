@@ -16,7 +16,7 @@
 </p>
 
 <p>
-  Artist: {{ release.artist }}
+  Artist: <a href="{% url 'myplaylists:artist_detail' release.artist.id %}">{{ release.artist.name }}</a>
 </p>
 
 
