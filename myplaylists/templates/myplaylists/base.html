@@ -1,17 +1,40 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-
+<style>
+#header {
+    background-color: #eeeeee;
+    color: Black;
+    padding: 17px;
+}
+#sidebar {
+    line-height:30px;
+    background-color:#eeeeee;
+    height: 100%;
+    width: auto;
+    float:left;
+    padding:5px;
+}
+#content {
+    width: auto;
+    float:left;
+    padding:10px;
+}
+</style>
+</head>
 <body>
 
 <div id="header">
     {% block header %}
         {% if user.username %}
-            <p>User {{ user.username }} (<a href="/logout">logout</a>)</p>
+            <p style="text-align:right">User {{ user.username }} (<a href="/logout">logout</a>)</p>
         {% else %}
-            <p><a href="/login">Sign in</a></p>
+            <a href="/login">Sign in</a></p>
         {% endif %}
     {% endblock %}
+
+<h1>SITW_Music</h1>
+
 </div>
 
 
@@ -22,7 +45,7 @@
             <li><a href="/myplaylists/playlists">MyPlaylists</a></li>
             <li><a href="/myplaylists/artists">Artists</a></li>
             <li><a href="/myplaylists/releases">Releases</a></li>
-
+            <li><a href="/myplaylists/songs">Songs</a></li>
         </ul>
     {% endblock %}
 </div>
