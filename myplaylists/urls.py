@@ -5,7 +5,7 @@ from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 from models import Artist, Release, Song, Playlist
 from forms import ArtistForm, SongForm, PlaylistForm
 from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail, ArtistDetail, SongDetail, PlaylistList, \
-    ReleaseList, ArtistList
+    ReleaseList, ArtistList, SongList
 
 urlpatterns = patterns('',
 
@@ -101,11 +101,27 @@ urlpatterns = patterns('',
 
 
 
-    #Song details, ex: /myplaylists/song/1
-    url(r'^song/(?P<pk>\d+)/$',
+    # List all Songs: myplaylists/songs/
+    url(r'^songs/$',
+        SongList.as_view(),
+        name='songs'),
+
+    # List all songs: /myplaylists/songs.json
+    url(r'^songs\.(?P<extension>(json|xml))$',
+        ArtistList.as_view(),
+        name='songs_conneg'),
+
+
+
+    # Song details, ex: /myplaylists/songs/1
+    url(r'^songs/(?P<pk>\d+)/$',
         SongDetail.as_view(),
         name='song_detail'),
-    )
 
+    # Song details, ex.: /myplaylists/releases/1.json
+    url(r'^songs/(?P<pk>\d+)\.(?P<extension>(json|xml))$',
+        SongDetail.as_view(),
+        name='song_detail_conneg'),
+    )
 
 

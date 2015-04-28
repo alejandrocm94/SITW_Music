@@ -75,7 +75,14 @@ class ArtistDetail(DetailView, ConnegResponseMixin):
     template_name = 'myplaylists/artist_detail.html'
 
 
-class SongDetail(DetailView):
+class SongList(ListView, ConnegResponseMixin):
+    model = Song
+    queryset = Song.objects.all()
+    context_object_name='all_songs_list'
+    template_name='myplaylists/song_list.html'
+
+
+class SongDetail(DetailView, ConnegResponseMixin):
     model = Song
     template_name = 'myplaylists/song_detail.html'
 
