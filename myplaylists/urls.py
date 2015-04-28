@@ -8,7 +8,7 @@ from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail,
 
 urlpatterns = patterns('',
     # List all user playlist: /myplaylists/
-    url(r'^$',
+    url(r'^playlists/$',
         PlaylistList.as_view(),
         name='playlist'),
 
@@ -17,23 +17,23 @@ urlpatterns = patterns('',
         PlaylistList.as_view(),
         name='playlist_conneg'),
 
-    # Playlist details, ex.: /myplaylists/1
-    url(r'^(?P<pk>\d+)/$',
+    # Playlist details, ex.: /myplaylists/playlisty1
+    url(r'^playlists/(?P<pk>\d+)/$',
         PlaylistDetail.as_view(),
         name='playlist_detail'),
 
-    url(r'^(?P<pk>\d+)\.(?P<extension>(json|xml))$',
+    url(r'^playlists/(?P<pk>\d+)\.(?P<extension>(json|xml))$',
         PlaylistDetail.as_view(),
         name='playlist_detail_conneg'),
 
 
     # Create a playlist: /myplaylists/create/
-    url(r'^create/$',
+    url(r'^playlists/create/$',
         PlaylistCreate.as_view(),
         name='playlist_create'),
 
     # Edit playlist details, ex: /myplaylists/edit/1
-    url(r'^edit/(?P<pk>\d+)/$',
+    url(r'^playlists/edit/(?P<pk>\d+)/$',
         UpdateView.as_view(
             model=Playlist,
             form_class=PlaylistForm,
@@ -41,12 +41,12 @@ urlpatterns = patterns('',
             name='playlist_edit'),
 
     # Delete playlist, ex: /myplaylists/delete/1
-    url(r'^delete/(?P<pk>\d+)/$',
+    url(r'^playlists/delete/(?P<pk>\d+)/$',
         PlaylistDelete.as_view(),
         name='delete_playlist'),
 
     #Release details, ex: /myplaylists/release/1
-    url(r'^release/(?P<pk>\d+)/$',
+    url(r'^releases/(?P<pk>\d+)/$',
         ReleaseDetail.as_view(),
         name='release_detail'),
 

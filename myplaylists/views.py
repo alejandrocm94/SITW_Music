@@ -78,7 +78,7 @@ class PlaylistCreate(CreateView):
 
 class PlaylistDelete(DeleteView):
     model = Playlist
-    success_url = '/myplaylists/'
+    success_url = '/myplaylists/playlists'
 
 
 def mainpage(request):
