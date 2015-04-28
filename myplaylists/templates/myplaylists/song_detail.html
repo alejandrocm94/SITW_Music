@@ -3,16 +3,16 @@
 {% block content %}
 
 <p>
-  Name: {{ song.name }}
+  <h3>Name:</h3> {{ song.name }}
 
 </p>
 
 <p>
-  Duration: {{ song.duration }}
+  <h3>Duration:</h3> {{ song.duration }}
 </p>
 
 <p>
-  Artist: <a href="{% url 'myplaylists:release_detail' song.release.id %}">{{ song.release }}</a>
+  Artist: <a href="{% url 'myplaylists:release_detail' song.release.id %}">{{ song.release.artist }}</a>
 </p>
 
 

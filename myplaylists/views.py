@@ -50,18 +50,27 @@ class PlaylistDetail(DetailView, ConnegResponseMixin):
     model = Playlist
     template_name = 'myplaylists/playlist_detail.html'
 
+
 class ReleaseList(ListView, ConnegResponseMixin):
     model = Release
     queryset = Release.objects.all()
     context_object_name='all_releases_list'
     template_name='myplaylists/release_list.html'
 
+
 class ReleaseDetail(DetailView, ConnegResponseMixin):
     model = Release
     template_name = 'myplaylists/release_detail.html'
 
 
-class ArtistDetail(DetailView):
+class ArtistList(ListView, ConnegResponseMixin):
+    model = Artist
+    queryset = Artist.objects.all()
+    context_object_name='all_artists_list'
+    template_name='myplaylists/artist_list.html'
+
+
+class ArtistDetail(DetailView, ConnegResponseMixin):
     model = Artist
     template_name = 'myplaylists/artist_detail.html'
 
