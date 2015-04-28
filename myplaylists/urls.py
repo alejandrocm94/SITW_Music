@@ -4,21 +4,27 @@ from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 
 from models import Artist, Release, Song, Playlist
 from forms import ArtistForm, SongForm, PlaylistForm
-from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail, ArtistDetail, SongDetail
+from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail, ArtistDetail, SongDetail, PlaylistList
 
 urlpatterns = patterns('',
     # List all user playlist: /myplaylists/
     url(r'^$',
-        ListView.as_view(
-            queryset = Playlist.objects.all(),
-            context_object_name='latest_playlist_list',
-            template_name='myplaylists/playlist_list.html'),
-            name='playlist'),
+        PlaylistList.as_view(),
+        name='playlist'),
+
+    # List all user playlist: /myplaylists/playlists.json
+    url(r'^playlists\.(?P<extension>(json|xml))$',
+        PlaylistList.as_view(),
+        name='playlist_conneg'),
 
     # Playlist details, ex.: /myplaylists/1
     url(r'^(?P<pk>\d+)/$',
         PlaylistDetail.as_view(),
         name='playlist_detail'),
+
+    url(r'^(?P<pk>\d+)\.(?P<extension>(json|xml))$',
+        PlaylistDetail.as_view(),
+        name='playlist_detail_conneg'),
 
 
     # Create a playlist: /myplaylists/create/
