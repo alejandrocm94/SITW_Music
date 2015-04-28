@@ -1,0 +1,14 @@
+{% extends "myplaylists/base.html" %}
+
+{% block content %}
+
+<h1>List of most popular Releases</h1>
+<ul>
+    {% for release in all_releases_list %}
+        <li><a href="{% url 'myplaylists:release_detail' release.id %}">{{ release.name }}</a></li>
+    {% empty %}
+        <li>Sorry, no releases registered yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
