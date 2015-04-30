@@ -1,25 +1,22 @@
-<!DOCTYPE html>
-<html>
+{% extends "myplaylists/base.html" %}
+{% load staticfiles %}
 
-  <head>
-  <title>Myplaylists - Sign In</title>
-  </head>
-<body>
-  <h1>User Login</h1>
+{% block content %}
 
-  {% if form.has_errors %}
-  <p>Error on user validation.</p>
-  {% endif %}
+<h1>User Login</h1>
 
-  <form method="post" action=".">
-  <p><label for="id_username">User:</label>
-  {{ form.username }}</p>
-  <p><label for="id_password">Pass:</label>
-  {{ form.password }}</p>
-  <input type="hidden" name="next" value="/" />
-  <input type="submit" value="login" />
-  {% csrf_token %}
-  </form>
+ {% if form.has_errors %}
+     <p>Error on user validation.</p>
+ {% endif %}
 
-</body>
-</html>
+ <form method="post" action=".">
+    <p><label for="id_username">User:</label>
+    {{ form.username }}</p>
+    <p><label for="id_password">Pass:</label>
+    {{ form.password }}</p>
+    <input type="hidden" name="next" value="/" />
+    <input type="submit" value="login" />
+    {% csrf_token %}
+ </form>
+
+{% endblock %}

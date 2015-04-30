@@ -122,6 +122,5 @@ urlpatterns = patterns('',
     url(r'^songs/(?P<pk>\d+)\.(?P<extension>(json|xml))$',
         SongDetail.as_view(),
         name='song_detail_conneg'),
+
     )
-
-
