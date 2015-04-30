@@ -23,6 +23,9 @@
         {% block header %}
             {% if user.username %}
                 <p style="text-align:right">User {{ user.username }} (<a href="/logout">logout</a>)</p>
+                {% if user.username == "admin" %}
+                    <p style="text-align:right">(<a href="/admin">Administration</a>)</p>
+                {% endif %}
             {% else %}
                 <p style="text-align: right"><a href="/login">Sign in</a></p>
             {% endif %}
