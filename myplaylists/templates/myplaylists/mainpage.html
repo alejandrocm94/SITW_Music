@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title> SITW_MUSIC </title>
-</head>
-<body>
-    {% if user.username %}
-        Welcome {{ user.username }} (<a href="/logout/">logout</a>)
-        <ul>
-            <li><a href="/myplaylists/playlists">MyPlaylists</a></li>
-            <li><a href="/myplaylists/artists">Artists</a></li>
-            <li><a href="/myplaylists/releases">Releases</a></li>
-            <li><a href="/myplaylists/songs">Songs</a></li>
-        </ul>
-    {% else %}
-        <p> Welcome anonymous:</p>
-        <p>Must <a href="/login/">sign in</a> to manage your playlists</p>
-    {% endif %}
-</body>
-</html>
+{% extends "myplaylists/base.html" %}
+    <p> Welcome anonymous:</p>
+    <p>Must <a href="/login/">sign in</a> to manage your playlists</p>

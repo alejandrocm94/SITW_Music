@@ -7,7 +7,7 @@
         Playlist
             (<a href="{% url 'myplaylists:playlist_create' %}">add</a>)
     {% else %}
-        Please log in
+        <h2>Please <a href="/login/">log in</a> to manage playlists</h2>
     {% endif %}
 
 </h1>
