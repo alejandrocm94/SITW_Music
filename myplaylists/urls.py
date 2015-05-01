@@ -108,7 +108,7 @@ urlpatterns = patterns('',
 
     # List all songs: /myplaylists/songs.json
     url(r'^songs\.(?P<extension>(json|xml))$',
-        ArtistList.as_view(),
+        SongList.as_view(),
         name='songs_conneg'),
 
 
