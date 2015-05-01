@@ -90,12 +90,12 @@ urlpatterns = patterns('',
 
 
     # Artist details, ex: /myplaylists/artist/1
-    url(r'^artist/(?P<pk>\d+)/$',
+    url(r'^artists/(?P<pk>\d+)/$',
         ArtistDetail.as_view(),
         name='artist_detail'),
 
     # Artist details, ex.: /myplaylists/releases/1.json
-    url(r'^artist/(?P<pk>\d+)\.(?P<extension>(json|xml))$',
+    url(r'^artists/(?P<pk>\d+)\.(?P<extension>(json|xml))$',
         ArtistDetail.as_view(),
         name='artist_detail_conneg'),
 
