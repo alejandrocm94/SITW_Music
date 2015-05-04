@@ -33,7 +33,7 @@ class Song(models.Model):
 
 class Playlist(models.Model):
     name = models.CharField(max_length=50)
-    user = models.ForeignKey(User, default = 1, editable = False)
+    user = models.ForeignKey(User, default=1, editable=False)
     songs = models.ManyToManyField(Song)
 
     def __unicode__(self):
