@@ -1,0 +1,7 @@
+Segur que vols borrar aquesta Playlist?{{ object.title }}?
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">SI</button>
+    <button type="button" onClick="history.back()">NO</button>
+
+</form>

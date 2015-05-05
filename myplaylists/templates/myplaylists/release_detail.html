@@ -1,0 +1,23 @@
+{% extends "myplaylists/base.html" %}
+
+{% block content %}
+
+<p>
+  <h3>Name:</h3> {{ release.name }}
+
+</p>
+
+<p>
+  <h3>Year:</h3> {{ release.year }}
+</p>
+
+<p>
+  <h3>Kind:</h3> {{ release.kind }}
+</p>
+
+<p>
+  Artist: <a href="{% url 'myplaylists:artist_detail' release.artist.id %}">{{ release.artist.name }}</a>
+</p>
+
+
+{% endblock %}

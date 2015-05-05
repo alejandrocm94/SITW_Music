@@ -4,20 +4,26 @@
 
 {% block content %}
 
-<span vocab="http://schema.org/" typeof="Restaurant">
 <h1>
     <span property="name">{{ playlist.name }}</span>
     {% if user == playlist.user %}
         (<a href="{% url 'myplaylists:playlist_edit' playlist.id %}">edit</a>)
-        (<a href="{% url 'myplaylists:playlist_delete' playlist.id %}">delete</a>)
+        (<a href="{% url 'myplaylists:delete_playlist' pk=playlist.pk %}">delete</a>)
     {% endif %}
 </h1>
 
 <h2>Songs:</h2>
 <p>
+    <center><table style="width:50%">
     {% for song in playlist.songs.all %}
-        {{ song }}
+            <tr>
+                <td><a href="{% url 'myplaylists:song_detail' song.id %}">{{ song.name }}</a></td>
+                <td><a href="{% url 'myplaylists:release_detail' song.release.id %}">{{ song.release }}</a></td>
+                <td><a href="{% url 'myplaylists:artist_detail' song.release.artist.id %}">{{ song.release.artist }}</a></td>
+                <td><i>{{ song.duration }}</i></td>
+            </tr>
     {% endfor %}
+    </table></center>
 </p>
 
 {% endblock %}
