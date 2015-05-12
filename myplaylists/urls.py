@@ -5,7 +5,7 @@ from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 from models import Artist, Release, Song, Playlist
 from forms import ArtistForm, SongForm, PlaylistForm
 from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail, ArtistDetail, SongDetail, PlaylistList, \
-    ReleaseList, ArtistList, SongList
+    ReleaseList, ArtistList, SongList, search
 
 urlpatterns = patterns('',
 
@@ -123,4 +123,6 @@ urlpatterns = patterns('',
         SongDetail.as_view(),
         name='song_detail_conneg'),
 
+    url(r'^songs/search/$', search, name="song_search"),
     )
+
