@@ -3,18 +3,24 @@ from django.views.generic import UpdateView
 from models import Playlist
 from forms import PlaylistForm
 from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail, ArtistDetail, SongDetail, PlaylistList, \
-    ReleaseList, ArtistList, SongList, search, UserViewSet, SongViewSet, ArtistViewSet
+    ReleaseList, ArtistList, SongList, search, UserViewSet, SongViewSet, ArtistViewSet, mainpage, ReleaseViewSet, \
+    PlaylistViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'artists', ArtistViewSet)
 router.register(r'songs', SongViewSet)
+router.register(r'releases', ReleaseViewSet)
+router.register(r'playlists', PlaylistViewSet)
 
 urlpatterns = patterns('',
 
     url(r'^api/', include(router.urls)),
+
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^$', mainpage, name='home'),
 
     # List all user playlist: /myplaylists/
     url(r'^playlists/$',
@@ -114,7 +120,7 @@ urlpatterns = patterns('',
         name='songs'),
 
     # List all songs: /myplaylists/songs.json
-    url(r'^songs\.(?P<extension>(json|xml))$',
+    url(r'^songs\.(?P<extension>(json|xml))/$',
         SongList.as_view(),
         name='songs_conneg'),
 

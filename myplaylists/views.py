@@ -20,90 +20,85 @@ from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
-from myplaylists.serializers import UserSerializer, SongSerializer, SongSerializer, ArtistSerializer
-
-
-@api_view(['GET'])
-def api_root(request, format=None):
-    """
-    The entry endpoint of our API
-    """
-    return Response({
-        'users': reverse('user-list', vrequest=request),
-        'songs': reverse('song-list', request=request),
-    })
+from myplaylists.serializers import UserSerializer, SongSerializer, SongSerializer, ArtistSerializer, ReleaseSerializer, \
+    PlaylistSerializer
 
 
 class UserList(generics.ListCreateAPIView):
-    """
-      API endpoint that	represents a list of users
-    """
     queryset = User.objects.all()
     model = User
     serializer_class = UserSerializer
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-      API endpoint that	represents a single users
-    """
     model = User
     serializer_class = UserSerializer
 
 
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
 class SongList(generics.ListCreateAPIView):
-    """
-      API endpoint that	represents a list of groups
-    """
     model = Song
     serializer_class = SongSerializer
 
 
 class SongDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-      API endpoint that	represents a single group
-    """
     model = Song
     serializer_class = SongSerializer
 
 
+class SongViewSet(viewsets.ModelViewSet):
+    queryset = Song.objects.all()
+    serializer_class = SongSerializer
+
+
 class ArtistList(generics.ListCreateAPIView):
-    """
-      API endpoint that	represents a list of groups
-    """
     model = Artist
     serializer_class = ArtistSerializer
 
 
 class ArtistDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-      API endpoint that	represents a single group
-    """
     model = Artist
     serializer_class = ArtistSerializer
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class SongViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Song.objects.all()
-    serializer_class = SongSerializer
-
 
 class ArtistViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
+
+
+class ReleaseList(generics.ListCreateAPIView):
+    model = Release
+    serializer_class = ReleaseSerializer
+
+
+class ReleaseDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = Artist
+    serializer_class = ReleaseSerializer
+
+
+class ReleaseViewSet(viewsets.ModelViewSet):
+    queryset = Release.objects.all()
+    serializer_class = ReleaseSerializer
+
+
+class PlaylistList(generics.ListCreateAPIView):
+    model = Playlist
+    serializer_class = PlaylistSerializer
+
+
+class PlaylistDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = Playlist
+    serializer_class = PlaylistSerializer
+
+
+class PlaylistViewSet(viewsets.ModelViewSet):
+    queryset = Playlist.objects.all()
+    serializer_class = PlaylistSerializer
+
 
 class ConnegResponseMixin(TemplateResponseMixin):
     def render_json_object_response(self, objects, **kwargs):
