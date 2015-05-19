@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
+from django.db.models import Q
+from django.template import RequestContext
 
 # Create your views here.
 # Create your views here.
@@ -16,7 +18,6 @@ from forms import PlaylistForm
 
 
 class ConnegResponseMixin(TemplateResponseMixin):
-
     def render_json_object_response(self, objects, **kwargs):
         json_data = serializers.serialize(u"json", objects, **kwargs)
         return HttpResponse(json_data, content_type=u"application/json")
@@ -43,8 +44,8 @@ class ConnegResponseMixin(TemplateResponseMixin):
 class PlaylistList(ListView, ConnegResponseMixin):
     model = Playlist
     queryset = Playlist.objects.all()
-    context_object_name='latest_playlist_list'
-    template_name='myplaylists/playlist_list.html'
+    context_object_name = 'latest_playlist_list'
+    template_name = 'myplaylists/playlist_list.html'
 
 
 class PlaylistDetail(DetailView, ConnegResponseMixin):
@@ -55,8 +56,8 @@ class PlaylistDetail(DetailView, ConnegResponseMixin):
 class ReleaseList(ListView, ConnegResponseMixin):
     model = Release
     queryset = Release.objects.all()
-    context_object_name='all_releases_list'
-    template_name='myplaylists/release_list.html'
+    context_object_name = 'all_releases_list'
+    template_name = 'myplaylists/release_list.html'
 
 
 class ReleaseDetail(DetailView, ConnegResponseMixin):
@@ -117,5 +118,18 @@ def log_out(request):
     return render_to_response(
         'registration/logout.html'
     )
+
+
+def search(request):
+    found_entries = None
+    if ('q' in request.GET) and request.GET['q'].strip():
+        query_string = request.GET['q']
+        found_entries = Song.objects.filter(name__icontains=query_string)
+        found_entries = found_entries | Song.objects.filter(release__name__icontains=query_string)
+        found_entries = found_entries | Song.objects.filter(release__artist__name=query_string)
+
+    return render_to_response('myplaylists/song_list.html',
+                              {'all_songs_list': found_entries},
+                              context_instance=RequestContext(request))
 
 

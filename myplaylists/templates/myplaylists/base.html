@@ -1,39 +1,24 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-<style>
-.container{ position:relative; padding:0 200px 0 200px;}
-#sidebar {
-    position: relative;
-    top:0; bottom:0; left:0;
-    width: 10px;
-    background:#eeeeee;
-}
-
-#header { border:1px solid #000; width: auto; height:200px; background-color: #eeeeee;
-}
-#content { width:auto; height:auto;
-}
-</style>
+<head>
+    <title>SITW_Music</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/static/style.css" type="text/css">
 </head>
 
 <body>
-<div class="container">
-    <div id="header">
-        {% block header %}
-            {% if user.username %}
-                <p style="text-align:right">User {{ user.username }} (<a href="/logout">logout</a>)</p>
-                {% if user.username == "admin" %}
-                    <p style="text-align:right">(<a href="/admin">Administration</a>)</p>
-                {% endif %}
-            {% else %}
-                <p style="text-align: right"><a href="/login">Sign in</a></p>
-            {% endif %}
-        {% endblock %}
-    <h1>SITW_Music</h1>
+<div id="header">
+   <div id="profile">
+        {% if user.username %}
+            <a href="">Hi! {{ user.username }}</a> <img src="">
+        {% endif %}
     </div>
-    <div id="sidebar">
-        {% block sidebar %}
+
+    <h1>SITW_Music</h1>
+    {% block menu %}
+        <div id="menu">
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/myplaylists/playlists">MyPlaylists</a></li>
@@ -41,16 +26,29 @@
                 <li><a href="/myplaylists/releases">Releases</a></li>
                 <li><a href="/myplaylists/songs">Songs</a></li>
             </ul>
-        {% endblock %}
+        </div>
+    {% endblock %}
+    <div id="login">
+            <ul>
+                {% if user.username %}
+                <li><a href="/logout">Logout</a></li>
+                    {% if user.username == "admin" %}
+                        <li><a href="/admin">Administration</a></li>
+                    {% endif %}
+                {% else %}
+                    <li><a title="Login" href="/login">Sign in</a></li>
+                {% endif %}
+            </ul>
     </div>
-    <div id="content">
-        {% block content %}
-            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-        {% endblock %}
-    </div>
-    <div id="footer">
-        {% block footer %}{% endblock %}
-    </div>
+    {% block header %}
+    {% endblock %}
+</div>
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+<div id="footer">
+    {% block footer %}{% endblock %}
 </div>
 </body>
 </html>

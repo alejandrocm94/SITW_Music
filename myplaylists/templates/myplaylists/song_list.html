@@ -1,10 +1,26 @@
 {% extends "myplaylists/base.html" %}
+{% load staticfiles %}
 
 {% block content %}
 
+    <script>
+        $(function() {
+            $.getJSON("{% static "songs.json" %}", {}, function(songs){
+                $("#id_q").autocomplete({
+                    source: songs
+                });
+            });
+        });
+    </script>
+
 <h1>List of most popular Songs</h1>
+    <form method="get" action="/myplaylists/songs/search/">
+        <label for="id_q">Search:</label>
+        <input type="search" name="q" id="id_q" placeholder="Search for a song..." />
+        <input type="submit" value="Submit"/>
+    </form>
 <ul>
-    <table style="width:50%">
+    <table>
     {% for song in all_songs_list %}
         <tr>
                 <td><a href="{% url 'myplaylists:song_detail' song.id %}">{{ song.name }}</a></td>
