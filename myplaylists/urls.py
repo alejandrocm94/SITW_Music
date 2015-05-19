@@ -1,13 +1,20 @@
-from django.conf.urls import patterns, url
-from django.utils import timezone
-from django.views.generic import DetailView, ListView, UpdateView, DeleteView
-
-from models import Artist, Release, Song, Playlist
-from forms import ArtistForm, SongForm, PlaylistForm
+from django.conf.urls import patterns, url, include
+from django.views.generic import UpdateView
+from models import Playlist
+from forms import PlaylistForm
 from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail, ArtistDetail, SongDetail, PlaylistList, \
-    ReleaseList, ArtistList, SongList, search
+    ReleaseList, ArtistList, SongList, search, UserViewSet, SongViewSet, ArtistViewSet
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'artists', ArtistViewSet)
+router.register(r'songs', SongViewSet)
 
 urlpatterns = patterns('',
+
+    url(r'^api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # List all user playlist: /myplaylists/
     url(r'^playlists/$',
