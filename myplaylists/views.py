@@ -48,6 +48,7 @@ class SongList(generics.ListCreateAPIView):
 class SongDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Song
     serializer_class = SongSerializer
+    name = "song-detail"
 
 
 class SongViewSet(viewsets.ModelViewSet):
@@ -88,86 +89,65 @@ class ReleaseViewSet(viewsets.ModelViewSet):
 class PlaylistList(generics.ListCreateAPIView):
     model = Playlist
     serializer_class = PlaylistSerializer
+    lookup_field = 'songs'
 
 
 class PlaylistDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Playlist
     serializer_class = PlaylistSerializer
+    lookup_field = 'songs'
 
 
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
+    lookup_field = 'songs'
 
 
-class ConnegResponseMixin(TemplateResponseMixin):
-    def render_json_object_response(self, objects, **kwargs):
-        json_data = serializers.serialize(u"json", objects, **kwargs)
-        return HttpResponse(json_data, content_type=u"application/json")
-
-    def render_xml_object_response(self, objects, **kwargs):
-        xml_data = serializers.serialize(u"xml", objects, **kwargs)
-        return HttpResponse(xml_data, content_type=u"application/xml")
-
-    def render_to_response(self, context, **kwargs):
-        if 'extension' in self.kwargs:
-            try:
-                objects = [self.object]
-            except AttributeError:
-                objects = self.object_list
-
-            if self.kwargs['extension'] == 'json':
-                return self.render_json_object_response(objects=objects)
-            elif self.kwargs['extension'] == 'xml':
-                return self.render_xml_object_response(objects=objects)
-        else:
-            return super(ConnegResponseMixin, self).render_to_response(context)
-
-
-class PlaylistList(ListView, ConnegResponseMixin):
+class PlaylistList(ListView):
     model = Playlist
     queryset = Playlist.objects.all()
     context_object_name = 'latest_playlist_list'
     template_name = 'myplaylists/playlist_list.html'
 
 
-class PlaylistDetail(DetailView, ConnegResponseMixin):
+class PlaylistDetail(DetailView):
     model = Playlist
     template_name = 'myplaylists/playlist_detail.html'
 
 
-class ReleaseList(ListView, ConnegResponseMixin):
+class ReleaseList(ListView):
     model = Release
     queryset = Release.objects.all()
     context_object_name = 'all_releases_list'
     template_name = 'myplaylists/release_list.html'
 
 
-class ReleaseDetail(DetailView, ConnegResponseMixin):
+class ReleaseDetail(DetailView):
     model = Release
     template_name = 'myplaylists/release_detail.html'
 
 
-class ArtistList(ListView, ConnegResponseMixin):
+class ArtistList(ListView):
     model = Artist
     queryset = Artist.objects.all()
     context_object_name = 'all_artists_list'
     template_name = 'myplaylists/artist_list.html'
 
 
-class ArtistDetail(DetailView, ConnegResponseMixin):
+class ArtistDetail(DetailView):
     model = Artist
     template_name = 'myplaylists/artist_detail.html'
 
 
-class SongList(ListView, ConnegResponseMixin):
+class SongList(ListView):
     model = Song
     queryset = Song.objects.all()
     context_object_name = 'all_songs_list'
     template_name = 'myplaylists/song_list.html'
 
 
-class SongDetail(DetailView, ConnegResponseMixin):
+class SongDetail(DetailView):
     model = Song
     template_name = 'myplaylists/song_detail.html'
 
