@@ -13,7 +13,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class SongSerializer(serializers.HyperlinkedModelSerializer):
 
     release = SlugRelatedField(
-        read_only=True,
+        queryset=Release.objects.all(),
         slug_field='name'
     )
 
@@ -31,7 +31,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 class ReleaseSerializer(serializers.HyperlinkedModelSerializer):
 
     artist = SlugRelatedField(
-        read_only=True,
+        queryset=Artist.objects.all(),
         slug_field='name'
     )
 
