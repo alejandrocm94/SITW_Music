@@ -2,17 +2,17 @@ from django.conf.urls import patterns, url, include
 from django.views.generic import UpdateView
 from models import Playlist
 from forms import PlaylistForm
-from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail, ArtistDetail, SongDetail, PlaylistList, \
-    ReleaseList, ArtistList, SongList, search, UserViewSet, SongViewSet, ArtistViewSet, mainpage, ReleaseViewSet, \
-    PlaylistViewSet
+from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail, ArtistDetail, SongDetail, \
+    PlaylistList, ReleaseList, ArtistList, SongList, search, APIUserViewSet, APISongViewSet, APIArtistViewSet, \
+    mainpage, APIReleaseViewSet, APIPlaylistViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'artists', ArtistViewSet)
-router.register(r'songs', SongViewSet)
-router.register(r'releases', ReleaseViewSet)
-router.register(r'playlists', PlaylistViewSet)
+router.register(r'users', APIUserViewSet)
+router.register(r'artists', APIArtistViewSet)
+router.register(r'songs', APISongViewSet)
+router.register(r'releases', APIReleaseViewSet)
+router.register(r'playlists', APIPlaylistViewSet)
 
 urlpatterns = patterns('',
 

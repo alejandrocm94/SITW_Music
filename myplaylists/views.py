@@ -1,13 +1,10 @@
 from django.contrib.auth.models import User, Group
-from django.core import serializers
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 # Create your views here.
 # Create your views here.
 
-from django.views.generic.base import TemplateResponseMixin
 from django.views.generic import DetailView, DeleteView, ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth import logout
@@ -17,91 +14,84 @@ from forms import PlaylistForm
 
 from rest_framework import viewsets
 from rest_framework import generics
-from rest_framework.decorators import api_view
-from rest_framework.reverse import reverse
-from rest_framework.response import Response
-from myplaylists.serializers import UserSerializer, SongSerializer, SongSerializer, ArtistSerializer, ReleaseSerializer, \
+from myplaylists.serializers import UserSerializer, SongSerializer, ArtistSerializer, ReleaseSerializer,\
     PlaylistSerializer
 
 
-class UserList(generics.ListCreateAPIView):
+class APIUserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     model = User
     serializer_class = UserSerializer
 
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+class APIUserDetail(generics.RetrieveUpdateDestroyAPIView):
     model = User
     serializer_class = UserSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class APIUserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
-class SongList(generics.ListCreateAPIView):
+class APISongList(generics.ListCreateAPIView):
     model = Song
     serializer_class = SongSerializer
 
 
-class SongDetail(generics.RetrieveUpdateDestroyAPIView):
+class APISongDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Song
     serializer_class = SongSerializer
-    name = "song-detail"
 
 
-class SongViewSet(viewsets.ModelViewSet):
+class APISongViewSet(viewsets.ModelViewSet):
     queryset = Song.objects.all()
     serializer_class = SongSerializer
 
 
-class ArtistList(generics.ListCreateAPIView):
+class APIArtistList(generics.ListCreateAPIView):
     model = Artist
     serializer_class = ArtistSerializer
 
 
-class ArtistDetail(generics.RetrieveUpdateDestroyAPIView):
+class APIArtistDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Artist
     serializer_class = ArtistSerializer
 
 
-class ArtistViewSet(viewsets.ModelViewSet):
+class APIArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
 
 
-class ReleaseList(generics.ListCreateAPIView):
+class APIReleaseList(generics.ListCreateAPIView):
     model = Release
     serializer_class = ReleaseSerializer
 
 
-class ReleaseDetail(generics.RetrieveUpdateDestroyAPIView):
+class APIReleaseDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Artist
     serializer_class = ReleaseSerializer
 
 
-class ReleaseViewSet(viewsets.ModelViewSet):
+class APIReleaseViewSet(viewsets.ModelViewSet):
     queryset = Release.objects.all()
     serializer_class = ReleaseSerializer
 
 
-class PlaylistList(generics.ListCreateAPIView):
+class APIPlaylistList(generics.ListCreateAPIView):
     model = Playlist
     serializer_class = PlaylistSerializer
-    lookup_field = 'songs'
 
 
-class PlaylistDetail(generics.RetrieveUpdateDestroyAPIView):
+class APIPlaylistDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Playlist
     serializer_class = PlaylistSerializer
-    lookup_field = 'songs'
 
 
-class PlaylistViewSet(viewsets.ModelViewSet):
+class APIPlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
-    lookup_field = 'songs'
 
 
 class PlaylistList(ListView):
