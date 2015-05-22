@@ -1,16 +1,12 @@
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-
-# Create your views here.
-# Create your views here.
-
 from django.views.generic import DetailView, DeleteView, ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth import logout
 
-from models import Artist, Release, Song, Playlist
-from forms import PlaylistForm
+from models import Artist, Release, Song, Playlist, UserProfile
+from forms import PlaylistForm, UserProfileForm
 
 from rest_framework import viewsets
 from rest_framework import generics
@@ -157,11 +153,28 @@ class PlaylistDelete(DeleteView):
     success_url = '/myplaylists/playlists'
 
 
+class UserProfileCreate(CreateView):
+    model = UserProfile
+    template_name = 'myplaylists/form.html'
+    form_class = UserProfileForm
+
+    def form_valid(self, form):
+        form.instance.id = self.request.user.id
+        form.instance.user = self.request.user
+        return super(UserProfileCreate, self).form_valid(form)
+
+
+class UserProfileDetail(DetailView):
+    model = UserProfile
+    template_name = 'myplaylists/userprofile_detail.html'
+
+
 def mainpage(request):
     return render_to_response(
         'myplaylists/mainpage.html',
         {
-            'user': request.user
+            'user': request.user,
+            'userprofile': UserProfile.objects.filter(user__id=request.user.id)
         }
     )
 

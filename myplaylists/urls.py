@@ -4,7 +4,7 @@ from models import Playlist
 from forms import PlaylistForm
 from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail, ArtistDetail, SongDetail, \
     PlaylistList, ReleaseList, ArtistList, SongList, search, APIUserViewSet, APISongViewSet, APIArtistViewSet, \
-    mainpage, APIReleaseViewSet, APIPlaylistViewSet
+    mainpage, APIReleaseViewSet, APIPlaylistViewSet, UserProfileCreate, UserProfileDetail, UserProfile, UserProfileForm
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -91,5 +91,23 @@ urlpatterns = patterns('',
 
 
     url(r'^songs/search/$', search, name="song_search"),
+
+    # User profile details, ex: /myplaylists/user/1/userprofile/
+    url(r'^user/(?P<pk>\d+)/userprofile/$',
+        UserProfileDetail.as_view(),
+        name='userprofile_detail'),
+
+    # Create a User profile: /myplaylists/user/1/userprofile/create/
+    url(r'^user/(?P<pk>\d+)/userprofile/create/$',
+        UserProfileCreate.as_view(),
+        name='userprofile_create'),
+
+    # Edit User profile details, ex: /myplaylists/user/1/userprofile/edit/1
+    url(r'^user/(?P<pk>\d+)/userprofile/edit/(?P<id>\d+)/$',
+        UpdateView.as_view(
+            model=UserProfile,
+            form_class=UserProfileForm,
+            template_name='myplaylists/form.html'),
+            name='userprofile_edit'),
     )
 

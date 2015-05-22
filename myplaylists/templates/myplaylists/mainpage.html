@@ -5,5 +5,10 @@
         <p> Welcome anonymous:</p>
         <p>Must <a href="/login/">sign in</a> to manage your playlists</p>
         <p>Also if you don't have an account you can <a href="/register/">sign up</a></p>
+    {% else %}
+        <p> Welcome {{ user.username }}</p>
+        {% if not userprofile %}
+            <p>You can create your <a href="{% url "myplaylists:userprofile_create" user.id %}">user profile</a></p>
+        {% endif %}
     {%  endif %}
 {% endblock %}

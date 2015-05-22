@@ -12,7 +12,7 @@
 <div id="header">
    <div id="profile">
         {% if user.username %}
-            <a href="">Hi! {{ user.username }}</a> <img src="">
+            <a href="{% url "myplaylists:userprofile_detail" user.id %}">Hi! {{ user.username }}</a> <img src="">
         {% endif %}
     </div>
 
