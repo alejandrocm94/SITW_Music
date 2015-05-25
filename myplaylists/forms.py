@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from myplaylists.models import Artist, Release, Song, Playlist, UserProfile
+from myplaylists.models import Artist, Release, Song, Playlist, UserProfile, Review
 
 
 class ArtistForm(ModelForm):
@@ -29,4 +29,4 @@ class PlaylistForm(ModelForm):
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = "__all__"
+        fields = ('name', 'surname', 'image', 'country', 'description')

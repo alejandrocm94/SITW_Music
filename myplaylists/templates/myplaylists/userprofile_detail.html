@@ -1,16 +1,13 @@
 {% extends "myplaylists/base.html" %}
 
 {% block content %}
-
-    <h1><a href="{% url 'myplaylists:userprofile_edit' user.id userprofile.id %}">edit</a></h1>
-
+<h3><a href="{% url 'myplaylists:userprofile_edit' user.id userprofile.id %}">edit</a></h3>
 {% if userprofile.image %}
 <p>
-  <h3>Image:</h3>
+  <h1>{{ userprofile.name }} {{ userprofile.surname }}</h1>
   <p><img src="{{ userprofile.image.url }}"/></p>
 </p>
 {% endif %}
-
 <p>
   <h3>Country:</h3> {{ userprofile.country }}
 </p>

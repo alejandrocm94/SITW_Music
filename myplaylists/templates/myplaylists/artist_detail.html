@@ -1,23 +1,16 @@
 {% extends "myplaylists/base.html" %}
 
 {% block content %}
-
+<h1>{{ artist.name }}</h1>
 <p>
-  <h3>Name:</h3> {{ artist.name }}
-
+  <img src="{{ artist.image.url }}", height="300"/>
 </p>
-
 <p>
   <h3>Area:</h3> {{ artist.area }}
 </p>
 
 <p>
-  <h3>Biography:</h3> {{ artist.biography }}
+  <h3>Biography:</h3>
+    <blockquote>{{ artist.biography }}</blockquote>
 </p>
-
-<p>
-  <h3>Score:</h3> {{ artist.score }}
-</p>
-
-
 {% endblock %}

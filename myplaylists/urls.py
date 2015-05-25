@@ -56,5 +56,7 @@ urlpatterns = patterns('',
         form_class=UserProfileForm,
         template_name='myplaylists/form.html'),
         name='userprofile_edit'),
+    url(r'^releases/(?P<pk>\d+)/reviews/create/$', 'myplaylists.views.review', name='review_create'),
+
     )
 

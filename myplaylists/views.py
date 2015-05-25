@@ -1,11 +1,13 @@
-from django.contrib.auth.models import User, Group
-from django.shortcuts import render_to_response
+from django.contrib.auth.models import User
+from django.core import urlresolvers
+from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.generic import DetailView, DeleteView, ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth import logout
 
-from models import Artist, Release, Song, Playlist, UserProfile
+from models import Artist, Release, Song, Playlist, UserProfile, ReleaseReview
 from forms import PlaylistForm, UserProfileForm
 
 from rest_framework import viewsets
@@ -199,3 +201,12 @@ def search(request):
                               context_instance=RequestContext(request))
 
 
+def review(request, pk):
+    release = get_object_or_404(Release, pk=pk)
+    new_review = ReleaseReview(
+        rating=request.POST['rating'],
+        comment=request.POST['comment'],
+        user=request.user,
+        release=release)
+    new_review.save()
+    return HttpResponseRedirect(urlresolvers.reverse('myplaylists:release_detail', args=(Release.id,)))
