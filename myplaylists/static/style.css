@@ -1,6 +1,9 @@
 body{
     background-color: #e8ddcb;
-    font-family: Verdana;
+    font-family: Verdana, Arial, helvetica, sans-serif;
+    padding-left: 50px;
+    padding-right: 50px;
+
 }
 #header {
     border-top-left-radius: 15px;
@@ -10,9 +13,10 @@ body{
     background-color: #033649;
 }
 
-#header h1 {
+#header h1 a {
     color: #e8ddcb;
     margin: 15px;
+    text-decoration: none;
 }
 
 #header ul {
@@ -46,14 +50,13 @@ body{
     float: right;
     overflow: hidden;
 }
-
 #profile{
     float: right;
 }
 #profile a{
     text-decoration: none;
     color: #e8ddcb;
-
+    padding: 10px;
 }
 #menu {
     float: left;
