@@ -15,6 +15,7 @@ body{
     color: #e8ddcb;
     margin: 15px;
     text-decoration: none;
+    font-style: italic;
 }
 #header ul {
     background-color: #036564;

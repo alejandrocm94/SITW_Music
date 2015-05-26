@@ -115,6 +115,11 @@ class ReleaseDetail(DetailView):
     model = Release
     template_name = 'myplaylists/release_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(ReleaseDetail, self).get_context_data(**kwargs)
+        context['songs'] = Song.objects.filter(release=self.get_object())
+        return context
+
 
 class ArtistList(ListView):
     model = Artist

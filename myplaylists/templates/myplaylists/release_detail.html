@@ -13,6 +13,12 @@
   <h3>Kind:</h3> {{ release.kind }}
 </p>
 
+    {% for song in songs  %}
+        {%  if song.release.id == release.id %}
+            {{ song.name }} {{ song.duration }}
+        {%  endif %}
+    {% endfor %}
+
 <p>
   Artist: <a href="{% url 'myplaylists:artist_detail' release.artist.id %}">{{ release.artist.name }}</a>
 </p>

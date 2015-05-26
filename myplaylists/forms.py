@@ -29,4 +29,4 @@ class PlaylistForm(ModelForm):
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('name', 'surname', 'image', 'country', 'description')
+        fields = ('name', 'surname', 'image', 'location', 'description')

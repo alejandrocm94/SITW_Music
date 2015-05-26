@@ -55,7 +55,7 @@ class UserProfile(models.Model):
     surname = models.CharField(max_length=50, blank=True)
     user = models.ForeignKey(User, default=1, editable=False)
     image = models.ImageField(upload_to="myplaylists/profilePics", blank=True, null=True)
-    country = models.CharField(max_length=50, blank=True)
+    location = models.CharField(max_length=50, blank=True)
     description = models.TextField(default="", blank=True)
 
     def __unicode__(self):
