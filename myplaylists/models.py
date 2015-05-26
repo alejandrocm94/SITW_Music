@@ -53,19 +53,20 @@ class Playlist(models.Model):
 class UserProfile(models.Model):
     name = models.CharField(max_length=50, blank=True)
     surname = models.CharField(max_length=50, blank=True)
-    user = models.ForeignKey(User, default=1, editable=False)
     image = models.ImageField(upload_to="myplaylists/profilePics", blank=True, null=True)
     location = models.CharField(max_length=50, blank=True)
+    user = models.ForeignKey(User, default=1, editable=False)
     description = models.TextField(default="", blank=True)
 
     def __unicode__(self):
-        return u"%s" % self.user.username
+        return u"%s" % self.name
 
     def get_absolute_url(self):
         return reverse('myplaylists:userprofile_detail', kwargs={'pk': self.pk})
 
 
 class Review(models.Model):
+    rating = models.IntegerField()
     comment = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, default=1)
     date = models.DateField(default=date.today)

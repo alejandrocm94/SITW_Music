@@ -4,6 +4,33 @@ body{
     padding-left: 50px;
     padding-right: 50px;
 }
+.ui-menu
+{
+    list-style: none;
+    text-decoration: none;
+    padding: 0px;
+    margin: 0px;
+    display: none;
+    float: left;
+    border-radius: 15px;
+    background-color: white;
+    font-family: Verdana;
+    font-size: 17px;
+}
+.ui-menu-item {
+    text-decoration: none;
+    margin: 0px;
+    padding: 5px;
+    zoom: 1;
+    width: 100%;
+}
+.ui-menu-item:hover {
+    border-radius: 15px;
+    background-color: #036564;
+    color: #e8ddcb;
+}
+.ui-helper-hidden-accessible { display:none; }
+
 #header {
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -92,5 +119,26 @@ body{
     color: blue;
     text-decoration: underline;
     font-style: italic;
+}
+#releaseInfo{
+    overflow: hidden;
+    float: left;
+}
+#songlist {
+    overflow: hidden;
+    padding-left: 50px;
+    float: left;
+}
+#reviews {
+    overflow: hidden;
+    float: left;
+    padding-left: 50px;
 
+}
+#reviews ul li {
+    display: block;
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 10px;
 }

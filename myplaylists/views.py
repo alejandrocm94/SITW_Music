@@ -7,7 +7,7 @@ from django.views.generic import DetailView, DeleteView, ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth import logout
 
-from models import Artist, Release, Song, Playlist, UserProfile, ReleaseReview
+from models import Artist, Release, Song, Playlist, UserProfile, ReleaseReview, Review
 from forms import PlaylistForm, UserProfileForm
 
 from rest_framework import viewsets
@@ -118,6 +118,11 @@ class ReleaseDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ReleaseDetail, self).get_context_data(**kwargs)
         context['songs'] = Song.objects.filter(release=self.get_object())
+        reviews = ReleaseReview.objects.filter(release=self.get_object())
+        counter = 0
+        for rev in reviews:
+            counter += rev.rating
+        context['avgRating'] = counter
         return context
 
 
@@ -206,9 +211,11 @@ def search(request):
                               context_instance=RequestContext(request))
 
 
+
 def review(request, pk):
     release = get_object_or_404(Release, pk=pk)
     new_review = ReleaseReview(
+        rating=request.POST['rating'],
         comment=request.POST['comment'],
         user=request.user,
         release=release)

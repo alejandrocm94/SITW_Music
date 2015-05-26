@@ -2,42 +2,54 @@
 
 {% block content %}
 <h1> {{ release.name }} </h1>
+<div id="releaseInfo">
 <p>
-  <img src="{{ release.image.url }}", height="300"/>
-</p>
-<p>
-  <h3>Year:</h3> {{ release.year }}
-</p>
+    <img src="{{ release.image.url }}", height="300"/>
+    <h3>Artist:</h3><a href="{% url 'myplaylists:artist_detail' release.artist.id %}">{{ release.artist.name }}</a>
+    <h3>Year:</h3> {{ release.year }}
 
-<p>
-  <h3>Kind:</h3> {{ release.kind }}
-</p>
+</div>
 
-    {% for song in songs  %}
-        {%  if song.release.id == release.id %}
-            {{ song.name }} {{ song.duration }}
-        {%  endif %}
-    {% endfor %}
+<div id="songlist">
+    <table>
+        {% for song in songs  %}
+        <tr>
+            <td><a href="{% url 'myplaylists:song_detail' song.id %}">{{ song.name }}</a></td>
+            <td><i>{{ song.duration }}</i></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 
-<p>
-  Artist: <a href="{% url 'myplaylists:artist_detail' release.artist.id %}">{{ release.artist.name }}</a>
-</p>
-<h2>Reviews</h2>
+<div id="reviews">
+    <h2>Reviews</h2>
+    <span rel="aggregateRating">Average rating: {{ avgRating }}<span property="ratingValue">5</span>
 
-<ul rel="review">
-    {% for review in release.releasereview_set.all %}
-        <li typeof="Review">
-            <p property="description">{{ review.comment }}</p>
-            <p>Created by <span property="author">{{ review.user }}</span> on
-                <span property="datePublished">{{ review.date}}</span></p>
-        </li>
-    {% endfor %}
-</ul>
-
-<h3>Add Review</h3>
-<form action="{% url 'myplaylists:review_create' release.id %}" method="post">
-    {% csrf_token %}
-    <textarea name="comment" id="comment" rows="4"></textarea>
-    <input type="submit" value="Review" />
-</form>
+    <ul rel="review">
+        {% for review in release.releasereview_set.all %}
+            <li typeof="Review">
+                <span property="rating"> Rating: {{ review.rating }} by</span>
+                <span property="author">{{ review.user }}</span>
+                {%  if user == review.user  %}
+                    <span property="delete">(<a>delete</a>)</span>
+                {%  endif %}
+                <p property="description">{{ review.comment }}</p>
+                <span property="datePublished">{{ review.date}}</span>
+            </li>
+        {% endfor %}
+    </ul>
+    <h3>Add Review</h3>
+    <form action="{% url 'myplaylists:review_create' release.id %}" method="post">
+        {% csrf_token %}
+        <select name="rating" id="rating">
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+        </select>
+        <textarea  name="comment" id="comment" rows="4"></textarea>
+        <input type="submit" value="Review" />
+    </form>
+</div>
 {% endblock %}
