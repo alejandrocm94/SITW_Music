@@ -23,32 +23,34 @@
 
 <div id="reviews">
     <h2>Reviews</h2>
-    <span rel="aggregateRating">Average rating: {{ avgRating }}<span property="ratingValue">5</span>
-
+    <span rel="aggregateRating">Average user rating: <span property="ratingValue">{{ avgRating }}</span>
+    <br><span rel="numberOfReviews">from {{ total }} reviews</span>
     <ul rel="review">
         {% for review in release.releasereview_set.all %}
             <li typeof="Review">
                 <span property="rating"> Rating: {{ review.rating }} by</span>
                 <span property="author">{{ review.user }}</span>
                 {%  if user == review.user  %}
-                    <span property="delete">(<a>delete</a>)</span>
+                    <span property="delete">(<a href="{% url 'myplaylists:review_delete' review.id release.id %}">delete</a>)</span>
                 {%  endif %}
                 <p property="description">{{ review.comment }}</p>
                 <span property="datePublished">{{ review.date}}</span>
             </li>
         {% endfor %}
     </ul>
-    <h3>Add Review</h3>
+    <h3>Your Review</h3>
     <form action="{% url 'myplaylists:review_create' release.id %}" method="post">
         {% csrf_token %}
+        Rating:
         <select name="rating" id="rating">
             <option value="5">5</option>
             <option value="4">4</option>
-            <option value="3">3</option>
+            <option selected value="3">3</option>
             <option value="2">2</option>
             <option value="1">1</option>
-        </select>
-        <textarea  name="comment" id="comment" rows="4"></textarea>
+        </select><br>
+        Comment: <br>
+        <textarea  name="comment" id="comment" rows="4" cols="30"></textarea>
         <input type="submit" value="Review" />
     </form>
 </div>

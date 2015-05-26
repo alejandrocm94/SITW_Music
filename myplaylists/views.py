@@ -119,10 +119,17 @@ class ReleaseDetail(DetailView):
         context = super(ReleaseDetail, self).get_context_data(**kwargs)
         context['songs'] = Song.objects.filter(release=self.get_object())
         reviews = ReleaseReview.objects.filter(release=self.get_object())
-        counter = 0
+        counterRating = 0
+        counterRev = 0
         for rev in reviews:
-            counter += rev.rating
-        context['avgRating'] = counter
+            counterRating += rev.rating
+            counterRev += 1
+        if counterRev > 0:
+            result = counterRating/(counterRev + 0.0)
+            context['avgRating'] = "%.2f" % result
+        else:
+            context['avgRating'] = "None"
+            context['total'] = counterRev
         return context
 
 
@@ -211,7 +218,6 @@ def search(request):
                               context_instance=RequestContext(request))
 
 
-
 def review(request, pk):
     release = get_object_or_404(Release, pk=pk)
     new_review = ReleaseReview(
@@ -221,3 +227,9 @@ def review(request, pk):
         release=release)
     new_review.save()
     return HttpResponseRedirect(urlresolvers.reverse('myplaylists:release_detail', args=(release.id,)))
+
+
+def delete_review(request, pk, id):
+    rev = get_object_or_404(ReleaseReview, pk=pk)
+    rev.delete()
+    return HttpResponseRedirect(urlresolvers.reverse('myplaylists:release_detail', args=(id)))

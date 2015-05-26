@@ -141,4 +141,8 @@ body{
     padding: 10px;
     border-radius: 15px;
     margin: 10px;
+    max-width: 300px;
+}
+#reviews textarea {
+   resize: none;
 }
