@@ -25,7 +25,7 @@ class SongSerializer(serializers.HyperlinkedModelSerializer):
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Artist
-        fields = ('name', 'area', 'biography', 'score')
+        fields = ('name', 'area', 'biography')
 
 
 class ReleaseSerializer(serializers.HyperlinkedModelSerializer):

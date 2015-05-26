@@ -204,9 +204,8 @@ def search(request):
 def review(request, pk):
     release = get_object_or_404(Release, pk=pk)
     new_review = ReleaseReview(
-        rating=request.POST['rating'],
         comment=request.POST['comment'],
         user=request.user,
         release=release)
     new_review.save()
-    return HttpResponseRedirect(urlresolvers.reverse('myplaylists:release_detail', args=(Release.id,)))
+    return HttpResponseRedirect(urlresolvers.reverse('myplaylists:release_detail', args=(release.id,)))
