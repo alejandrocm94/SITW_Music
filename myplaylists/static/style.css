@@ -1,6 +1,8 @@
 body{
     background-color: #e8ddcb;
-    font-family: Verdana;
+    font-family: Verdana, Arial, helvetica, sans-serif;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 #header {
     border-top-left-radius: 15px;
@@ -9,26 +11,23 @@ body{
     text-decoration-style: dashed;
     background-color: #033649;
 }
-
-#header h1 {
+#header h1 a {
     color: #e8ddcb;
     margin: 15px;
+    text-decoration: none;
 }
-
 #header ul {
     background-color: #036564;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    margin: 0px 0px 0px 30px;
+    margin: 0 0 0 30px;
     padding: 0;
 
 }
-
 #header ul li {
     display: inline-table;
 
 }
-
 #header ul li a {
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
@@ -36,24 +35,21 @@ body{
     text-decoration: none;
     color: #e8ddcb;
 }
-
 #header ul li a:hover {
     color: black;
     background-color: #cdb380;
 }
-
 #login {
     float: right;
     overflow: hidden;
 }
-
 #profile{
     float: right;
 }
 #profile a{
     text-decoration: none;
     color: #e8ddcb;
-
+    padding: 10px;
 }
 #menu {
     float: left;
@@ -69,11 +65,31 @@ body{
 #content table {
     text-align: left;
 }
-
 #content td {
     padding: 10px;
 }
-
 #content h1 {
     color: #033649;
+}
+#content h3 a {
+    float: right;
+    color: #033649;
+    text-decoration: none;
+    font-style: italic;
+}
+#content h3 a:hover {
+    color: blue;
+    text-decoration: underline;
+    font-style: italic;
+}
+#content a{
+    color: #033649;
+    text-decoration: none;
+    font-style: italic;
+}
+#content a:hover{
+    color: blue;
+    text-decoration: underline;
+    font-style: italic;
+
 }

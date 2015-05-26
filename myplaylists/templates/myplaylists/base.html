@@ -12,15 +12,14 @@
 <div id="header">
    <div id="profile">
         {% if user.username %}
-            <a href="">Hi! {{ user.username }}</a> <img src="">
+            <a href="{% url "myplaylists:userprofile_detail" user.id %}">Hi! {{ user.username }}</a>
         {% endif %}
-    </div>
-
-    <h1>SITW_Music</h1>
+   </div>
+    <h1><a href="/myplaylists">SITW_Music</a></h1>
     {% block menu %}
         <div id="menu">
             <ul>
-                <li><a href="/">Home</a></li>
+                <li><a href="/myplaylists">Home</a></li>
                 <li><a href="/myplaylists/playlists">MyPlaylists</a></li>
                 <li><a href="/myplaylists/artists">Artists</a></li>
                 <li><a href="/myplaylists/releases">Releases</a></li>

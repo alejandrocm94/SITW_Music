@@ -1,178 +1,141 @@
-from django.contrib.auth.models import User, Group
-from django.core import serializers
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.contrib.auth.models import User
+from django.core import urlresolvers
+from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-
-# Create your views here.
-# Create your views here.
-
-from django.views.generic.base import TemplateResponseMixin
 from django.views.generic import DetailView, DeleteView, ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth import logout
 
-from models import Artist, Release, Song, Playlist
-from forms import PlaylistForm
+from models import Artist, Release, Song, Playlist, UserProfile, ReleaseReview
+from forms import PlaylistForm, UserProfileForm
 
 from rest_framework import viewsets
 from rest_framework import generics
-from rest_framework.decorators import api_view
-from rest_framework.reverse import reverse
-from rest_framework.response import Response
-from myplaylists.serializers import UserSerializer, SongSerializer, SongSerializer, ArtistSerializer
+from myplaylists.serializers import UserSerializer, SongSerializer, ArtistSerializer, ReleaseSerializer,\
+    PlaylistSerializer
 
 
-@api_view(['GET'])
-def api_root(request, format=None):
-    """
-    The entry endpoint of our API
-    """
-    return Response({
-        'users': reverse('user-list', vrequest=request),
-        'songs': reverse('song-list', request=request),
-    })
-
-
-class UserList(generics.ListCreateAPIView):
-    """
-      API endpoint that	represents a list of users
-    """
+class APIUserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     model = User
     serializer_class = UserSerializer
 
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-      API endpoint that	represents a single users
-    """
+class APIUserDetail(generics.RetrieveUpdateDestroyAPIView):
     model = User
     serializer_class = UserSerializer
 
 
-class SongList(generics.ListCreateAPIView):
-    """
-      API endpoint that	represents a list of groups
-    """
-    model = Song
-    serializer_class = SongSerializer
-
-
-class SongDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-      API endpoint that	represents a single group
-    """
-    model = Song
-    serializer_class = SongSerializer
-
-
-class ArtistList(generics.ListCreateAPIView):
-    """
-      API endpoint that	represents a list of groups
-    """
-    model = Artist
-    serializer_class = ArtistSerializer
-
-
-class ArtistDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-      API endpoint that	represents a single group
-    """
-    model = Artist
-    serializer_class = ArtistSerializer
-
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
+class APIUserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
-class SongViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
+class APISongList(generics.ListCreateAPIView):
+    model = Song
+    serializer_class = SongSerializer
+
+
+class APISongDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = Song
+    serializer_class = SongSerializer
+
+
+class APISongViewSet(viewsets.ModelViewSet):
     queryset = Song.objects.all()
     serializer_class = SongSerializer
 
 
-class ArtistViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
+class APIArtistList(generics.ListCreateAPIView):
+    model = Artist
+    serializer_class = ArtistSerializer
+
+
+class APIArtistDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = Artist
+    serializer_class = ArtistSerializer
+
+
+class APIArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
 
-class ConnegResponseMixin(TemplateResponseMixin):
-    def render_json_object_response(self, objects, **kwargs):
-        json_data = serializers.serialize(u"json", objects, **kwargs)
-        return HttpResponse(json_data, content_type=u"application/json")
 
-    def render_xml_object_response(self, objects, **kwargs):
-        xml_data = serializers.serialize(u"xml", objects, **kwargs)
-        return HttpResponse(xml_data, content_type=u"application/xml")
-
-    def render_to_response(self, context, **kwargs):
-        if 'extension' in self.kwargs:
-            try:
-                objects = [self.object]
-            except AttributeError:
-                objects = self.object_list
-
-            if self.kwargs['extension'] == 'json':
-                return self.render_json_object_response(objects=objects)
-            elif self.kwargs['extension'] == 'xml':
-                return self.render_xml_object_response(objects=objects)
-        else:
-            return super(ConnegResponseMixin, self).render_to_response(context)
+class APIReleaseList(generics.ListCreateAPIView):
+    model = Release
+    serializer_class = ReleaseSerializer
 
 
-class PlaylistList(ListView, ConnegResponseMixin):
+class APIReleaseDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = Artist
+    serializer_class = ReleaseSerializer
+
+
+class APIReleaseViewSet(viewsets.ModelViewSet):
+    queryset = Release.objects.all()
+    serializer_class = ReleaseSerializer
+
+
+class APIPlaylistList(generics.ListCreateAPIView):
+    model = Playlist
+    serializer_class = PlaylistSerializer
+
+
+class APIPlaylistDetail(generics.RetrieveUpdateDestroyAPIView):
+    model = Playlist
+    serializer_class = PlaylistSerializer
+
+
+class APIPlaylistViewSet(viewsets.ModelViewSet):
+    queryset = Playlist.objects.all()
+    serializer_class = PlaylistSerializer
+
+
+class PlaylistList(ListView):
     model = Playlist
     queryset = Playlist.objects.all()
     context_object_name = 'latest_playlist_list'
     template_name = 'myplaylists/playlist_list.html'
 
 
-class PlaylistDetail(DetailView, ConnegResponseMixin):
+class PlaylistDetail(DetailView):
     model = Playlist
     template_name = 'myplaylists/playlist_detail.html'
 
 
-class ReleaseList(ListView, ConnegResponseMixin):
+class ReleaseList(ListView):
     model = Release
     queryset = Release.objects.all()
     context_object_name = 'all_releases_list'
     template_name = 'myplaylists/release_list.html'
 
 
-class ReleaseDetail(DetailView, ConnegResponseMixin):
+class ReleaseDetail(DetailView):
     model = Release
     template_name = 'myplaylists/release_detail.html'
 
 
-class ArtistList(ListView, ConnegResponseMixin):
+class ArtistList(ListView):
     model = Artist
     queryset = Artist.objects.all()
     context_object_name = 'all_artists_list'
     template_name = 'myplaylists/artist_list.html'
 
 
-class ArtistDetail(DetailView, ConnegResponseMixin):
+class ArtistDetail(DetailView):
     model = Artist
     template_name = 'myplaylists/artist_detail.html'
 
 
-class SongList(ListView, ConnegResponseMixin):
+class SongList(ListView):
     model = Song
     queryset = Song.objects.all()
     context_object_name = 'all_songs_list'
     template_name = 'myplaylists/song_list.html'
 
 
-class SongDetail(DetailView, ConnegResponseMixin):
+class SongDetail(DetailView):
     model = Song
     template_name = 'myplaylists/song_detail.html'
 
@@ -192,11 +155,28 @@ class PlaylistDelete(DeleteView):
     success_url = '/myplaylists/playlists'
 
 
+class UserProfileCreate(CreateView):
+    model = UserProfile
+    template_name = 'myplaylists/form.html'
+    form_class = UserProfileForm
+
+    def form_valid(self, form):
+        form.instance.id = self.request.user.id
+        form.instance.user = self.request.user
+        return super(UserProfileCreate, self).form_valid(form)
+
+
+class UserProfileDetail(DetailView):
+    model = UserProfile
+    template_name = 'myplaylists/userprofile_detail.html'
+
+
 def mainpage(request):
     return render_to_response(
         'myplaylists/mainpage.html',
         {
-            'user': request.user
+            'user': request.user,
+            'userprofile': UserProfile.objects.filter(user__id=request.user.id)
         }
     )
 
@@ -221,3 +201,12 @@ def search(request):
                               context_instance=RequestContext(request))
 
 
+def review(request, pk):
+    release = get_object_or_404(Release, pk=pk)
+    new_review = ReleaseReview(
+        rating=request.POST['rating'],
+        comment=request.POST['comment'],
+        user=request.user,
+        release=release)
+    new_review.save()
+    return HttpResponseRedirect(urlresolvers.reverse('myplaylists:release_detail', args=(Release.id,)))
