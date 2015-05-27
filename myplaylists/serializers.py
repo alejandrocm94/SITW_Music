@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework.relations import HyperlinkedIdentityField, HyperlinkedRelatedField
 from rest_framework.serializers import SlugRelatedField
 from myplaylists.models import Song, Artist, Release, Playlist
 
@@ -10,18 +11,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('username', 'email')
 
 
-class SongSerializer(serializers.HyperlinkedModelSerializer):
-
-    release = SlugRelatedField(
-        queryset=Release.objects.all(),
-        slug_field='name'
-    )
-
-    class Meta:
-        model = Song
-        fields = ('name', 'duration', 'release')
-
-
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Artist
@@ -30,30 +19,29 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 
 class ReleaseSerializer(serializers.HyperlinkedModelSerializer):
 
-    artist = SlugRelatedField(
-        queryset=Artist.objects.all(),
-        slug_field='name'
-    )
+    release_url = HyperlinkedIdentityField(view_name='myplaylists:release-detail')
+    artist = HyperlinkedRelatedField(view_name='myplaylists:artist-detail', read_only=True)
 
     class Meta:
         model = Release
-        fields = ('name', 'year', 'kind', 'artist')
+        fields = ('release_url', 'name', 'year', 'kind', 'artist')
+
+
+class SongSerializer(serializers.HyperlinkedModelSerializer):
+
+    song_url = HyperlinkedIdentityField(view_name='myplaylists:song-detail')
+    release = HyperlinkedRelatedField(view_name='myplaylists:release-detail', read_only=True)
+
+    class Meta:
+        model = Song
+        fields = ('song_url', 'name', 'duration', 'release')
 
 
 class PlaylistSerializer(serializers.HyperlinkedModelSerializer):
 
-    songs = SlugRelatedField(
-        many=True,
-        queryset=Song.objects.all(),
-        slug_field='name'
-     )
-
-    user = SlugRelatedField(
-        read_only=True,
-        slug_field='username'
-     )
-
+    songs = HyperlinkedRelatedField(view_name='myplaylists:song-detail', read_only=True, many=True)
+    user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = Playlist
-        fields = ('name', 'user' ,'songs')
+        fields = ('name', 'user', 'songs')
