@@ -4,7 +4,7 @@
     {% if not user.username %}
         <p> Welcome anonymous:</p>
         <p>Must <a href="/login/">sign in</a> to manage your playlists</p>
-        <p>Also if you don't have an account you can <a href="/register/">sign up</a></p>
+        <p>Also if you don't have an account you can <a href="/register/">register</a></p>
     {% else %}
         <p> Welcome {{ user.username }}</p>
         {% if not userprofile %}

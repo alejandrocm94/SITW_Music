@@ -2,11 +2,10 @@
 
 {% block content %}
 <h3><a href="{% url 'myplaylists:userprofile_edit' user.id userprofile.id %}">edit</a></h3>
+<p><h1>{{ userprofile.name }} {{ userprofile.surname }}</h1></p>
+
 {% if userprofile.image %}
-<p>
-  <h1>{{ userprofile.name }} {{ userprofile.surname }}</h1>
   <p><img src="{{ userprofile.image.url }}"/></p>
-</p>
 {% endif %}
 <p>
   <h3>Country:</h3> {{ userprofile.location }}

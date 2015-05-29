@@ -7,6 +7,7 @@
     <img src="{{ release.image.url }}", height="300"/>
     <h3>Artist:</h3><a href="{% url 'myplaylists:artist_detail' release.artist.id %}">{{ release.artist.name }}</a>
     <h3>Year:</h3> {{ release.year }}
+    <h3>Genre:</h3> {{ release.kind }}
 
 </div>
 
@@ -51,6 +52,7 @@
         </select><br>
         Comment: <br>
         <textarea  name="comment" id="comment" rows="4" cols="30"></textarea>
+        <br>
         <input type="submit" value="Review" />
     </form>
 </div>
