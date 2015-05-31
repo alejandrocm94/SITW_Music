@@ -1,14 +1,37 @@
 {% extends "myplaylists/base.html" %}
+{% load staticfiles %}
 
 {% block content %}
+
+    <script>
+        $(function() {
+            $.getJSON("{% static "songs.json" %}", {}, function(songs){
+                $("#id_q").autocomplete({
+                    source: songs
+                });
+            });
+        });
+    </script>
+    <div id="search">
+        <form method="get" action="/myplaylists/songs/search/">
+            <input type="search" name="q" id="id_q" placeholder="Search for a song..." />
+            <input type="submit" value="Search"/>
+        </form>
+    </div>
     {% if not user.username %}
         <p> Welcome anonymous:</p>
         <p>Must <a href="/login/">sign in</a> to manage your playlists</p>
         <p>Also if you don't have an account you can <a href="/register/">register</a></p>
     {% else %}
-        <p> Welcome {{ user.username }}</p>
         {% if not userprofile %}
             <p>You can create your <a href="{% url "myplaylists:userprofile_create" user.id %}">user profile</a></p>
         {% endif %}
     {%  endif %}
+
+    <h1>Recent Playlists: </h1>
+        {% for playlist in playlists %}
+            {{ playlist.name }}
+        {% endfor %}
+
+
 {% endblock %}

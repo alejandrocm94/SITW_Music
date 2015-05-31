@@ -3,6 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.contrib.auth.forms import UserCreationForm
 from myplaylists.views import *
+from django.views.generic import RedirectView
 from django.conf import settings
 
 admin.autodiscover()
@@ -20,7 +21,7 @@ urlpatterns = patterns('',
             form_class=UserCreationForm,
             success_url='/')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^$', mainpage, name='home'),
+    url(r'^$', RedirectView.as_view(url='myplaylists/')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^myplaylists/', include('myplaylists.urls', namespace='myplaylists')),
 )

@@ -2,15 +2,34 @@
 
 {% block content %}
 <h1>{{ artist.name }}</h1>
-<p>
-  <img src="{{ artist.image.url }}", height="300"/>
-</p>
-<p>
-  <h3>Area:</h3> {{ artist.area }}
-</p>
+<img src="{{ artist.image.url }}", height="300"/>
+<h3>Area:</h3> {{ artist.area }}
 
-<p>
-  <h3>Biography:</h3>
+<div id="albumlist">
+    <h2>Releases:</h2>
+    <table>
+        {% for release in releases  %}
+        <tr>
+            <td>
+                <span>
+                    <img src="{{ release.image.url }}" height="50" width="50">
+                </span>
+            </td>
+            <td>
+                <span property="name"><a href="{% url 'myplaylists:release_detail' release.id %}">
+                    {{ release.name }}
+                </a></span>
+            </td>
+            <td>
+                <i>
+                    <span property="year">{{ release.year }}</span>
+                </i>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<h3>Biography:</h3>
     <blockquote>{{ artist.biography }}</blockquote>
-</p>
+
 {% endblock %}

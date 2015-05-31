@@ -5,7 +5,7 @@ from forms import PlaylistForm
 from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail, ArtistDetail, SongDetail, \
     PlaylistList, ReleaseList, ArtistList, SongList, search, APIUserViewSet, APISongViewSet, APIArtistViewSet, \
     mainpage, APIReleaseViewSet, APIPlaylistViewSet, UserProfileCreate, UserProfileDetail, UserProfile, UserProfileForm, \
-    APIUserDetail, APIArtistDetail, APISongDetail, APIReleaseDetail, APIPlaylistDetail
+    APIUserDetail, APIArtistDetail, APISongDetail, APIReleaseDetail, APIPlaylistDetail, MainpageView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -19,7 +19,7 @@ urlpatterns = patterns('',
 
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^$', mainpage, name='home'),
+    url(r'^$', MainpageView.as_view(), name='home'),
     # List all user playlist: /myplaylists/
     url(r'^playlists/$', PlaylistList.as_view(), name='playlist'),
     # Playlist details, ex.: /myplaylists/playlists/1

@@ -2,8 +2,8 @@ from django.contrib.auth.models import User
 from django.core import urlresolvers
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
-from django.views.generic import DetailView, DeleteView, ListView
+from django.template import RequestContext, Context
+from django.views.generic import DetailView, DeleteView, ListView, TemplateView
 from django.views.generic.edit import CreateView
 from django.contrib.auth import logout
 
@@ -92,6 +92,15 @@ class APIPlaylistViewSet(viewsets.ModelViewSet):
     serializer_class = PlaylistSerializer
 
 
+class MainpageView(TemplateView):
+    template_name = 'myplaylists/mainpage.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MainpageView, self).get_context_data(**kwargs)
+        context['playlists'] = Playlist.objects.all()
+        return context
+
+
 class PlaylistList(ListView):
     model = Playlist
     queryset = Playlist.objects.all()
@@ -143,6 +152,11 @@ class ArtistList(ListView):
 class ArtistDetail(DetailView):
     model = Artist
     template_name = 'myplaylists/artist_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtistDetail, self).get_context_data(**kwargs)
+        context['releases'] = Release.objects.filter(artist=self.get_object())
+        return context
 
 
 class SongList(ListView):

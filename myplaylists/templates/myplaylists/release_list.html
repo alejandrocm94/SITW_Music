@@ -3,12 +3,26 @@
 {% block content %}
 
 <h1>List of most popular Releases</h1>
-<ul>
+<table>
     {% for release in all_releases_list %}
-        <li><a href="{% url 'myplaylists:release_detail' release.id %}">{{ release.name }}</a></li>
-    {% empty %}
-        <li>Sorry, no releases registered yet.</li>
+    <tr>
+        <td>
+            <span>
+                <img src="{{ release.image.url }}" height="50" width="50">
+            </span>
+        </td>
+        <td>
+            <span property="name"><a href="{% url 'myplaylists:release_detail' release.id %}">
+                {{ release.name }}
+            </a></span>
+        </td>
+        <td>
+            <i>
+                <span property="year">{{ release.year }}</span>
+            </i>
+        </td>
+    </tr>
     {% endfor %}
-</ul>
+</table>
 
 {% endblock %}

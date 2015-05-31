@@ -120,6 +120,13 @@ body{
     text-decoration: underline;
     font-style: italic;
 }
+#search{
+    float: right;
+    padding-top: 20px;
+}
+#searchzone{
+    padding-top: 20px;
+}
 #releaseInfo{
     overflow: hidden;
     float: left;
