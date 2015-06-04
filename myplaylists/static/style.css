@@ -8,8 +8,8 @@ body{
 {
     list-style: none;
     text-decoration: none;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     display: none;
     float: left;
     border-radius: 15px;
@@ -19,7 +19,7 @@ body{
 }
 .ui-menu-item {
     text-decoration: none;
-    margin: 0px;
+    margin: 0;
     padding: 5px;
     zoom: 1;
     width: 100%;

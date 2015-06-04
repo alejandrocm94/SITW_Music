@@ -4,8 +4,8 @@ from models import Playlist
 from forms import PlaylistForm
 from views import PlaylistDetail, PlaylistCreate, PlaylistDelete, ReleaseDetail, ArtistDetail, SongDetail, \
     PlaylistList, ReleaseList, ArtistList, SongList, search, APIUserViewSet, APISongViewSet, APIArtistViewSet, \
-    mainpage, APIReleaseViewSet, APIPlaylistViewSet, UserProfileCreate, UserProfileDetail, UserProfile, UserProfileForm, \
-    APIUserDetail, APIArtistDetail, APISongDetail, APIReleaseDetail, APIPlaylistDetail, MainpageView
+    APIReleaseViewSet, APIPlaylistViewSet, UserProfileCreate, UserProfileDetail, UserProfile, \
+    UserProfileForm,MainpageView
 from rest_framework import routers
 
 router = routers.DefaultRouter()

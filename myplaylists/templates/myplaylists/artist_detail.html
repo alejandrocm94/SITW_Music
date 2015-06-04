@@ -1,11 +1,13 @@
 {% extends "myplaylists/base.html" %}
 
 {% block content %}
-<h1>{{ artist.name }}</h1>
-<img src="{{ artist.image.url }}", height="300"/>
-<h3>Area:</h3> {{ artist.area }}
 
-<div id="albumlist">
+    <div vocab="http://schema.org/" typeof="MusicGroup">
+
+<h1 property="legalName">{{ artist.name }}</h1>
+<img property="image" src="{{ artist.image.url }}", height="300"/>
+<h3>Area:</h3> <div property="foundingLocation">{{ artist.area }}</div>
+
     <h2>Releases:</h2>
     <table>
         {% for release in releases  %}
@@ -16,20 +18,20 @@
                 </span>
             </td>
             <td>
-                <span property="name"><a href="{% url 'myplaylists:release_detail' release.id %}">
+                <span property="album"><a href="{% url 'myplaylists:release_detail' release.id %}">
                     {{ release.name }}
                 </a></span>
             </td>
             <td>
                 <i>
-                    <span property="year">{{ release.year }}</span>
+                    <span>{{ release.year }}</span>
                 </i>
             </td>
         </tr>
         {% endfor %}
     </table>
-</div>
 <h3>Biography:</h3>
-    <blockquote>{{ artist.biography }}</blockquote>
+    <blockquote property="description">{{ artist.biography }}</blockquote>
 
+    </div>
 {% endblock %}

@@ -136,6 +136,7 @@ class ReleaseDetail(DetailView):
         if counterRev > 0:
             result = counterRating/(counterRev + 0.0)
             context['avgRating'] = "%.2f" % result
+            context['total'] = counterRev
         else:
             context['avgRating'] = "None"
             context['total'] = counterRev
