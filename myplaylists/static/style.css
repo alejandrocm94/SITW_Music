@@ -1,6 +1,6 @@
 body{
-    background-color: #e8ddcb;
-    font-family: Verdana, Arial, helvetica, sans-serif;
+    background-color: black;
+    font-family: Verdana;
     padding-left: 50px;
     padding-right: 50px;
 }
@@ -36,19 +36,18 @@ body{
     border-top-right-radius: 15px;
     overflow: hidden;
     text-decoration-style: dashed;
-    background-color: #033649;
+    background-color: #1215f6;
 }
 #header h1 a {
-    color: #e8ddcb;
+    font-family: Impact;
+    color: white;
     margin: 15px;
     text-decoration: none;
     font-style: italic;
 }
 #header ul {
-    background-color: #036564;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    margin: 0 0 0 30px;
+    background-color: black;
+    margin: 0 0 0 15%;
     padding: 0;
 
 }
@@ -57,9 +56,9 @@ body{
 
 }
 #header ul li a {
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    padding: .2em 1em;
+    font-family: Impact;
+    padding: 30px;
+    margin-bottom: 10px;
     text-decoration: none;
     color: #e8ddcb;
 }
@@ -85,6 +84,9 @@ body{
 }
 #content {
     overflow: hidden;
+    background-color: #e8ddcb;
+    padding: 20px 20px 100px 40px;
+
 }
 #content a {
     text-decoration: none;
@@ -97,6 +99,7 @@ body{
     padding: 10px;
 }
 #content h1 {
+    font-family: Verdana;
     color: #033649;
 }
 #content h3 a {

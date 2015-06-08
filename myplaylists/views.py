@@ -98,6 +98,7 @@ class MainpageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(MainpageView, self).get_context_data(**kwargs)
         context['playlists'] = Playlist.objects.all()
+        context['profiles'] = UserProfile.objects.all()
         return context
 
 

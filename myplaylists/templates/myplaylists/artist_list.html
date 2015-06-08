@@ -3,12 +3,20 @@
 {% block content %}
 
 <h1>List of most popular Artists</h1>
-<ul>
+    <table>
     {% for artist in all_artists_list %}
-        <li><a href="{% url 'myplaylists:artist_detail' artist.id %}">{{ artist.name }}</a></li>
-    {% empty %}
-        <li>Sorry, no artists registered yet.</li>
+    <tr>
+        <td>
+            <span>
+                <img src="{{ artist.image.url }}" height="50" width="50">
+            </span>
+        </td>
+        <td>
+            <span property="name"><a href="{% url 'myplaylists:artist_detail' artist.id %}">
+                {{ artist.name }}
+            </a></span>
+        </td>
+    </tr>
     {% endfor %}
-</ul>
-
+</table>
 {% endblock %}

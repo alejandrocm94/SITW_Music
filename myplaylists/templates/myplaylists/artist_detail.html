@@ -2,11 +2,10 @@
 
 {% block content %}
 
-    <div vocab="http://schema.org/" typeof="MusicGroup">
-
-<h1 property="legalName">{{ artist.name }}</h1>
-<img property="image" src="{{ artist.image.url }}", height="300"/>
-<h3>Area:</h3> <div property="foundingLocation">{{ artist.area }}</div>
+<div vocab="http://schema.org/" typeof="MusicGroup">
+    <h1 property="legalName">{{ artist.name }}</h1>
+    <img property="image" src="{{ artist.image.url }}", height="300"/>
+    <h3>Area:</h3> <div property="foundingLocation">{{ artist.area }}</div>
 
     <h2>Releases:</h2>
     <table>
@@ -30,8 +29,7 @@
         </tr>
         {% endfor %}
     </table>
-<h3>Biography:</h3>
-    <blockquote property="description">{{ artist.biography }}</blockquote>
-
-    </div>
+    <h3>Biography:</h3>
+        <blockquote property="description">{{ artist.biography }}</blockquote>
+</div>
 {% endblock %}
