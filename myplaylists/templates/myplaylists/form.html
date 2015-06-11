@@ -5,14 +5,8 @@
 
     <script>
         $(function() {
-            $.getJSON("{% static "nationalities.json" %}", {}, function (nationalities) {
-                $("#id_nationality").autocomplete({
-                    source: nationalities
-                });
-            });
-
             $("#id_location").autocomplete({
-                source: function( request, response ) {
+                source: function (request, response) {
                     $.ajax({
                         url: "http://ws.geonames.org/searchJSON",
                         dataType: "jsonp",
@@ -22,8 +16,8 @@
                             name_startsWith: request.term,
                             username: "sitwmusic"
                         },
-                        success: function( data ) {
-                            response( $.map( data.geonames, function( item ) {
+                        success: function (data) {
+                            response($.map(data.geonames, function (item) {
                                 return {
                                     label: item.name + ", " + item.countryName,
                                     value: item.name + ", " + item.countryName,

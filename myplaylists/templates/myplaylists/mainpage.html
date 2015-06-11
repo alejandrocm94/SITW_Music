@@ -23,9 +23,7 @@
         <p>Must <a href="/login/">sign in</a> to manage your playlists</p>
         <p>Also if you don't have an account you can <a href="/register/">register</a></p>
     {% else %}
-        {% if not userprofile %}
             <p>You can create your <a href="{% url "myplaylists:userprofile_create" user.id %}">user profile</a></p>
-        {% endif %}
     {%  endif %}
 
     <div id="recent">

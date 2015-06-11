@@ -15,10 +15,10 @@
         <h3>Genre:</h3><span property="genre">{{ release.kind }}</span>
     </div>
 
-    <div id="songlist" property="track" typeof="MusicRecording">
+    <div id="songlist" property="track" typeof="ItemList">
         <table>
             {% for song in songs  %}
-            <tr>
+            <tr property="itemListElement" typeof="MusicRecording">
                 <td>
                     <span property="name"><a href="{% url 'myplaylists:song_detail' song.id %}">
                         {{ song.name }}
